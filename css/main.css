@@ -1,21 +1,21 @@
-body {
-  background-color: #121212;
-  color: aqua;
-  margin: 0px;
+/**
+ * Handles main styling and layout - Padding, margins, alignment etc.
+ * Leaves colours to dark.css and light.css 
+ */
+
+table, th, td {
+  border: 1px solid;
 }
 
 table {
   width: 100%;
-
 }
 
 img {
   width: 100%
 }
 
-/* Style the header */
 .header {
-  background-color: #121212;
   padding: 20px;
   text-align: center;
 }
@@ -46,7 +46,7 @@ img {
 }
 
 /* Responsive Layout */
-@media screen and (max-width:600px) {
+@media screen and (max-width:800px) {
   .column {
     width: 100%;
   }

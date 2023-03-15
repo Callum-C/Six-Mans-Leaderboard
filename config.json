@@ -1,6 +1,0 @@
-{ 
-  "headers": [
-    "Username", "Matches Won", "Win Streak", "Match Diff", "Matches Played",
-    "Win Percentage", "Games Won", "Game Diff", "Games Played"
-  ]
-}

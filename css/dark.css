@@ -1,0 +1,16 @@
+body {
+  font-family: "Times New Roman";
+  background-color: #121212;
+  color: white;
+  margin: 0px;
+}
+
+/* Style the header */
+.header {
+  background-color: #800aed;
+  color: white;
+}
+
+tr:hover {
+  background-color: darkblue;
+}
