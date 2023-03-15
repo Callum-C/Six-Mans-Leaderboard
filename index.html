@@ -6,7 +6,7 @@
     <link rel="stylesheet" href = "css/index.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="scripts/database.js"></script>
+    <script type="module" src="scripts/database.js"></script>
   </head>
   
   <body>
@@ -18,26 +18,23 @@
     <!-- Columns -->
     <div class="row">
       <div class="sideColumn">
-        <!--Empty Left Column-->
-      </div>
-
-      <div class="column">
         <h2>Column</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-          Maecenas sit amet pretium urna. Vivamus venenatis velit nec neque 
-          ultricies, eget elementum magna tristique. Quisque vehicula, risus 
-          eget aliquam placerat, purus leo tincidunt eros, eget luctus quam orci
-           in velit. Praesent scelerisque tortor sed accumsan convallis.</p>
 
         <img src="assets/nyanCat.webp">
+      </div>
+
+      <!-- Main Content Goes Here -->
+      <div class="column" id="mainContent">
 
         <p id="demo">Table goes here...</p>
     
-        <button type="button" onclick="callAPI()">Try it</button>
+        <button type="button" onclick="createTable()">Generate Leaderboard</button>
       </div>
 
       <div class="sideColumn">
-        <!--Empty Right Column-->
+        <h2>Column</h2>
+
+        <img src="assets/nyanCat.webp">
       </div>
     </div>
 
