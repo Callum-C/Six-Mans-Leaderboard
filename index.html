@@ -10,6 +10,7 @@
   </head>
   
   <body>
+
     <!-- Header -->
     <div class="header">
       <h1>Chinney Six Mans Leaderboard</h1>
@@ -26,9 +27,11 @@
       <!-- Main Content Goes Here -->
       <div class="column" id="mainContent">
 
-        <p id="demo">Table goes here...</p>
-    
-        <button type="button" onclick="callAPI()">Generate Leaderboard</button>
+      <p id="loading">Table goes here...</p>
+      <script>
+        window.onload = callAPI();
+      </script>
+        
       </div>
      
       <div class="sideColumn">
