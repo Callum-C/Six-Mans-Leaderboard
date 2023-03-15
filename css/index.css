@@ -1,0 +1,43 @@
+body {
+  background-color: #121212;
+  color: aqua;
+  margin: 0px;
+}
+
+/* Style the header */
+.header {
+  background-color: #121212;
+  padding: 20px;
+  text-align: center;
+}
+
+.sideColumn {
+  float: left;
+  width: 10%;
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+}
+
+/* Make central column */
+.column {
+  float: left;
+  width: 70%;
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+}
+
+/* Clear floats after the columns */
+.row::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive Layout */
+@media screen and (max-width:600px) {
+  .column {
+    width: 100%;
+  }
+}

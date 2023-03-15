@@ -1,32 +1,47 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
-    <title>Chinney Six Mans Leaderboard</title>
-    <script src="testScript.js"></script>
-<style>
-  body {
-    font-family: Arial;
-    line-height: 1.5em;
-    max-width: 768px;
-    margin: 0px auto;
-    padding: 64px;
-  }
-  code {
-    border: 1px solid #d0d0d0;
-    background-color: #f0f0f0;
-    padding: 2px 4px;
-    border-radius: 3px;
-  }
-</style>
+    <title>Leaderboard</title>
+    <link rel="stylesheet" href = "css/index.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="scripts/database.js"></script>
   </head>
+  
   <body>
-    <h1>Chinney Six Mans Leaderboard</h1>
-    <a href="./about">See the about page</a>
-
-    <p id="demo">Loading...</p>
+    <!-- Header -->
+    <div class="header">
+      <h1>Chinney Six Mans Leaderboard</h1>
+    </div>
     
-    <button type="button" onclick="myFunction()">Try it</button>
+    <!-- Columns -->
+    <div class="row">
+      <div class="sideColumn">
+        <!--Empty Left Column-->
+      </div>
+
+      <div class="column">
+        <h2>Column</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+          Maecenas sit amet pretium urna. Vivamus venenatis velit nec neque 
+          ultricies, eget elementum magna tristique. Quisque vehicula, risus 
+          eget aliquam placerat, purus leo tincidunt eros, eget luctus quam orci
+           in velit. Praesent scelerisque tortor sed accumsan convallis.</p>
+
+        <img src="assets/nyanCat.webp">
+
+        <p id="demo">Table goes here...</p>
+    
+        <button type="button" onclick="callAPI()">Try it</button>
+      </div>
+
+      <div class="sideColumn">
+        <!--Empty Right Column-->
+      </div>
+    </div>
+
+    
     
     
   </body>
