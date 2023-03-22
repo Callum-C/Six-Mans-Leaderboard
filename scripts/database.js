@@ -2,10 +2,13 @@
 async function callAPI() {
   document.getElementById("loading").innerHTML = "Loading...";
 
+  const guildID = getURLParam('guildID');
+  console.log(`Guild ID: ${guildID}`);
+  
   let table = createTable();
 
   const response = await fetch(
-    'https://chinney98.api.stdlib.com/six-mans-api/'
+    `https://chinney98.api.stdlib.com/six-mans-api/?guildID=${guildID}`
   );
   const data = await response.json();
 
@@ -40,6 +43,17 @@ function createTable () {
 
   table.appendChild(tr);
   return table;
+}
+
+function getURLParam(sParam) {
+  const sPageURL = window.location.search.substring(1);
+  const sURLVariables = sPageURL.split('&');
+  for (let i = 0; i < sURLVariables.length; i++) {
+    const sParameterName = sURLVariables[i].split('=');
+    if (sParameterName[0] === sParam) {
+      return sParameterName[1];
+    }
+  }
 }
   
 /**
