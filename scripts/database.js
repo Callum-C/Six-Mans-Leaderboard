@@ -2,22 +2,61 @@
 async function callAPI() {
   document.getElementById("loading").innerHTML = "Loading...";
 
-  const guildID = getURLParam('guildID');
+  var guildID = getURLParam('guildID');
+
+  if (!guildID) {
+    guildID = "941643629280235550";
+  }
+
   console.log(`Guild ID: ${guildID}`);
   
-  let table = createTable();
+  var mainLeaderboard, unplacedLeaderboard, hasPlaced=false, hasUnplaced=false;
 
   const response = await fetch(
     `https://chinney98.api.stdlib.com/six-mans-api/?guildID=${guildID}`
   );
   const data = await response.json();
 
-  for (const player of data) {
-    table = addPlayer(table, player);
+  if (data.length > 0) {
+    mainLeaderboard = createTable();
+    unplacedLeaderboard = createTable();
+
+    for (const player of data) {
+      console.log(`Player: ${player.username} is placed: ${player.placed}`);
+
+      if (player.placed){
+        if (!hasPlaced){
+          hasPlaced = true;
+        }
+        mainLeaderboard = addPlayer(mainLeaderboard, player);
+      } else {
+        if (!hasUnplaced) {
+          hasUnplaced = true;
+        }
+        unplacedLeaderboard = addPlayer(unplacedLeaderboard, player);
+      }
+    }
+
+    if(hasPlaced) {
+      console.log("Has placed players.");
+      document.getElementById("mainContent").appendChild(mainLeaderboard);
+    }
+
+    if (hasUnplaced) {
+      console.log("Has Unplaced players.");
+      const unplacedHeading = document.createElement("H2");
+      unplacedHeading.innerHTML = "Unplaced";
+      document.getElementById("mainContent").appendChild(unplacedHeading);
+      document.getElementById("mainContent").appendChild(unplacedLeaderboard);
+    }
+
+    document.getElementById("loading").style.visibility = "hidden";
+  } else {
+    // No data to display
+    document.getElementById("loading").innerHTML = 
+      "No Matches have been played in this server yet.";
   }
 
-  document.getElementById("mainContent").appendChild(table);
-  document.getElementById("loading").style.visibility = "hidden";
 }
   
 /**
