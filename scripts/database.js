@@ -3,7 +3,7 @@ async function callAPI() {
   document.getElementById("loading").innerHTML = "Loading...";
 
   var guildID = getURLParam('guildID');
-
+  
   if (!guildID) {
     guildID = "941643629280235550";
   }
@@ -22,8 +22,6 @@ async function callAPI() {
     unplacedLeaderboard = createTable();
 
     for (const player of data) {
-      console.log(`Player: ${player.username} is placed: ${player.placed}`);
-
       if (player.placed){
         if (!hasPlaced){
           hasPlaced = true;
@@ -38,16 +36,17 @@ async function callAPI() {
     }
 
     if(hasPlaced) {
-      console.log("Has placed players.");
+      // Has players with more than 5 games played.
       document.getElementById("mainContent").appendChild(mainLeaderboard);
     }
 
     if (hasUnplaced) {
-      console.log("Has Unplaced players.");
+      // Has players with less than 5 games played
       const unplacedHeading = document.createElement("H2");
       unplacedHeading.innerHTML = "Unplaced";
       document.getElementById("mainContent").appendChild(unplacedHeading);
       document.getElementById("mainContent").appendChild(unplacedLeaderboard);
+      console.log(unplacedLeaderboard);
     }
 
     document.getElementById("loading").style.visibility = "hidden";
@@ -66,24 +65,31 @@ async function callAPI() {
  */
 function createTable () {
   const headers = [
-    "Username", "Matches Won", "Win Streak", "Match Diff", "Matches Played",
-    "Win Percentage", "Games Won", "Game Diff", "Games Played"
+    "   ", "Username", "Matches Won", "Current Streak", "Best Win Streak", 
+    "Match Diff", "Matches Played", "Win Percentage", "Games Won", "Game Diff", 
+    "Games Played"
   ];
 
   let table = document.createElement('table');
-  const tr = document.createElement('tr');
+  const thead = table.createTHead();
+  const tbody = table.createTBody();
+  const tr = thead.insertRow();
 
   for (let i=0; i < headers.length; i++) {
-    const th = document.createElement('th');
+    const th = tr.insertCell()
     const text = document.createTextNode(headers[i]);
     th.appendChild(text);
-    tr.appendChild(th);
   }
-
-  table.appendChild(tr);
+  
   return table;
 }
 
+/**
+ * Get parameter from URL.
+ * 
+ * @param {String} sParam Search Parameter
+ * @returns 
+ */
 function getURLParam(sParam) {
   const sPageURL = window.location.search.substring(1);
   const sURLVariables = sPageURL.split('&');
@@ -103,56 +109,52 @@ function getURLParam(sParam) {
   * @returns {HTMLTableElement} table
   */
 function addPlayer (table, player) {
-  const exceptions = ["username", "matchesLost", "losingStreak", "gamesLost"]
+  const exceptions = ["matchesLost", "losingStreak", "gamesLost"]
+  const streak = player.winStreak > 0 ? player.winStreak : -player.losingStreak;
 
-  const tr = document.createElement('tr');
-
+  const tbody = table.getElementsByTagName('tbody')[0];
+  const tr = tbody.insertRow();
+  
   // Show user name first
-  var td = document.createElement('td');
+  var td = tr.insertCell();
   var text = document.createTextNode(player.username);
   td.appendChild(text);
-  tr.appendChild(td);
 
-  td = document.createElement('td');
+  td = tr.insertCell();
   text = document.createTextNode(player.matchesWon);
   td.appendChild(text);
-  tr.appendChild(td);
 
-  td = document.createElement('td');
-  text = document.createTextNode(player.winStreak);
+  td = tr.insertCell();
+  text = document.createTextNode(streak);
   td.appendChild(text);
-  tr.appendChild(td);
 
-  td = document.createElement('td');
+  td = tr.insertCell();
+  text = document.createTextNode(player.highestWinStreak);
+  td.appendChild(text);
+
+  td = tr.insertCell();
   text = document.createTextNode(player.matchDiff);
   td.appendChild(text);
-  tr.appendChild(td);
 
-  td = document.createElement('td');
+  td = tr.insertCell();
   text = document.createTextNode(player.matchesPlayed);
   td.appendChild(text);
-  tr.appendChild(td);
 
-  td = document.createElement('td');
+  td = tr.insertCell();
   text = document.createTextNode(`${player.winPercentage}%`);
   td.appendChild(text);
-  tr.appendChild(td);
 
-  td = document.createElement('td');
+  td = tr.insertCell();
   text = document.createTextNode(player.gamesWon);
   td.appendChild(text);
-  tr.appendChild(td);
 
-  td = document.createElement('td');
+  td = tr.insertCell();
   text = document.createTextNode(player.gameDiff);
   td.appendChild(text);
-  tr.appendChild(td);
 
-  td = document.createElement('td');
+  td = tr.insertCell();
   text = document.createTextNode(player.gamesPlayed);
   td.appendChild(text);
-  tr.appendChild(td);
 
-  table.appendChild(tr);
   return table;
 }
