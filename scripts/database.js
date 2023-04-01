@@ -5,7 +5,7 @@ async function callAPI() {
   var guildID = getURLParam('guildID');
   
   if (!guildID) {
-    guildID = "941643629280235550";
+    guildID = "349293115225407488";
   }
 
   console.log(`Guild ID: ${guildID}`);
