@@ -7,8 +7,23 @@ table, th, td {
   border: 1px solid;
 }
 
+/**
+ * 
+ */
 table {
   width: 100%;
+  counter-reset: rowNumber;
+}
+
+tbody tr {
+  counter-increment: rowNumber;
+}
+
+tbody tr::before {
+  display: table-cell;
+  content: counter(rowNumber);
+  min-width: 1em;
+  margin-right: 0.5em;
 }
 
 img {
