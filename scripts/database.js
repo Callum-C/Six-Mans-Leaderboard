@@ -13,7 +13,8 @@ async function callAPI() {
   var mainLeaderboard, unplacedLeaderboard, hasPlaced=false, hasUnplaced=false;
 
   const response = await fetch(
-    `https://chinney98.api.stdlib.com/six-mans-api/?guildID=${guildID}`
+    `https://orc8aw0hui.execute-api.eu-west-1.amazonaws.com/Initial/stats/` + 
+    `?guildID=${guildID}`
   );
   const data = await response.json();
 
