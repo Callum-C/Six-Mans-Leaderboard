@@ -1,16 +1,30 @@
 body {
-  font-family: "Times New Roman";
   background-color: white;
   color: black;
-  margin: 0px;
 }
 
-/* Style the header */
-.header {
+/* Style for current page / navigation link */
+.active {
   background-color: #800aed;
-  color: white;
+}
+
+.notactive:hover {
+  background-color: #ad68ed;
+}
+
+.notactive::after {
+  background-color: #fac524;
 }
 
 tr:hover {
   background-color: lightblue;
+}
+
+ul {
+  background-color: #FAF9F6;
+}
+
+li a {
+  color: white;
+  background-color: #777;
 }

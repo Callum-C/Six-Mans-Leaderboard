@@ -5,8 +5,6 @@ async function callAPI() {
   var guildID = getURLParam('guildID');
   
   guildID = guildID ? guildID : "349293115225407488";
-
-  console.log(`Guild ID: ${guildID}`);
   
   var mainLeaderboard, unplacedLeaderboard, hasPlaced=false, hasUnplaced=false;
 
