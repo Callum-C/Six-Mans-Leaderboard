@@ -1,5 +1,5 @@
-
 async function callAPI() {
+
   document.getElementById("loading").innerHTML = "Loading...";
 
   var guildID = getURLParam('guildID');
@@ -8,11 +8,12 @@ async function callAPI() {
   
   var mainLeaderboard, unplacedLeaderboard, hasPlaced=false, hasUnplaced=false;
 
-  const response = await fetch(
+  const response = axios.get(
     `https://orc8aw0hui.execute-api.eu-west-1.amazonaws.com/Initial/stats/` + 
     `?guildID=${guildID}`
   );
-  const data = await response.json();
+
+  const data = response.data;
 
   if (data.length > 0) {
     mainLeaderboard = createTable();
