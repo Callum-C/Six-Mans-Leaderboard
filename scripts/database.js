@@ -8,7 +8,7 @@ async function callAPI() {
   
   var mainLeaderboard, unplacedLeaderboard, hasPlaced=false, hasUnplaced=false;
 
-  const response = axios.get(
+  const response = await axios.get(
     `https://orc8aw0hui.execute-api.eu-west-1.amazonaws.com/Initial/stats/` + 
     `?guildID=${guildID}`
   );
