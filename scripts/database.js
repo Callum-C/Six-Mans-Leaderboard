@@ -1,8 +1,8 @@
 var mainLeaderboard, unplacedLeaderboard;
 var hasPlaced = false, hasUnplaced = false;
 
-async function load (season=3) {
-  getThemePreference();
+async function load (season=3, nested=false) {
+  getThemePreference(nested);
   if (sessionStorage.getItem("hasCodeRunBefore") === null) {
     await callAPI();
     sessionStorage.setItem("hasCodeRunBefore", true);
@@ -33,7 +33,7 @@ function dataToLeaderboards (season=3) {
   const data = JSON.parse(sessionStorage.getItem("data"))[season];
   
   console.log(data);
-  
+
   if (data.length > 0) {
     mainLeaderboard = createTable();
     unplacedLeaderboard = createTable();
