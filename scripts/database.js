@@ -32,8 +32,6 @@ async function callAPI () {
 function dataToLeaderboards (season=3) {
   
   const data = JSON.parse(sessionStorage.getItem("data"))[season];
-  
-  console.log(data);
 
   if (data.length > 0) {
     mainLeaderboard = createTable();
