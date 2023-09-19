@@ -1,13 +1,13 @@
 var mainLeaderboard, unplacedLeaderboard;
 var hasPlaced = false, hasUnplaced = false;
 
-async function load () {
+async function load (season=3) {
   getThemePreference();
   if (sessionStorage.getItem("hasCodeRunBefore") === null) {
     await callAPI();
     sessionStorage.setItem("hasCodeRunBefore", true);
   }
-  dataToLeaderboards();
+  dataToLeaderboards(season);
   displayLeaderboards();
 };
 
@@ -28,10 +28,12 @@ async function callAPI () {
 
 }
 
-function dataToLeaderboards () {
+function dataToLeaderboards (season=3) {
   
-  const data = JSON.parse(sessionStorage.getItem("data"));
-
+  const data = JSON.parse(sessionStorage.getItem("data"))[season];
+  
+  console.log(data);
+  
   if (data.length > 0) {
     mainLeaderboard = createTable();
     unplacedLeaderboard = createTable();

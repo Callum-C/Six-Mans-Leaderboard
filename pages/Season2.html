@@ -7,6 +7,7 @@
     <link id="theme" rel="stylesheet" href = "../css/dark.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="../scripts/database.js"></script>
     <script src="../scripts/main.js"></script>
     <script src="../node_modules/axios/dist/axios.min.js"></script>
     
@@ -41,7 +42,7 @@
         <p id="loading">Table goes here...</p>
         
         <script>
-          window.onload = getThemePreference(true);
+          window.onload = load(2);
         </script>
         
       </div>
