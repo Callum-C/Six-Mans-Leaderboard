@@ -1,20 +1,38 @@
+var mainLeaderboard, unplacedLeaderboard;
+var hasPlaced = false, hasUnplaced = false;
 
-async function callAPI() {
+async function load (season=3, nested=false) {
+  getThemePreference(nested);
+  if (sessionStorage.getItem("hasCodeRunBefore") === null) {
+    await callAPI();
+    sessionStorage.setItem("hasCodeRunBefore", true);
+  }
+  dataToLeaderboards(season);
+  displayLeaderboards();
+};
+
+async function callAPI () {
+
   document.getElementById("loading").innerHTML = "Loading...";
 
   var guildID = getURLParam('guildID');
   
   guildID = guildID ? guildID : "349293115225407488";
 
-  console.log(`Guild ID: ${guildID}`);
-  
-  var mainLeaderboard, unplacedLeaderboard, hasPlaced=false, hasUnplaced=false;
-
-  const response = await fetch(
+  const response = await axios.get(
     `https://orc8aw0hui.execute-api.eu-west-1.amazonaws.com/Initial/stats/` + 
     `?guildID=${guildID}`
   );
-  const data = await response.json();
+
+  sessionStorage.setItem("data", JSON.stringify(response.data));
+
+}
+
+function dataToLeaderboards (season=3) {
+  
+  const data = JSON.parse(sessionStorage.getItem("data"))[season];
+  
+  console.log(data);
 
   if (data.length > 0) {
     mainLeaderboard = createTable();
@@ -34,26 +52,30 @@ async function callAPI() {
       }
     }
 
-    if(hasPlaced) {
-      // Has players with more than 5 games played.
-      document.getElementById("mainContent").appendChild(mainLeaderboard);
-    }
-
-    if (hasUnplaced) {
-      // Has players with less than 5 games played
-      const unplacedHeading = document.createElement("H2");
-      unplacedHeading.innerHTML = "Unplaced";
-      document.getElementById("mainContent").appendChild(unplacedHeading);
-      document.getElementById("mainContent").appendChild(unplacedLeaderboard);
-      console.log(unplacedLeaderboard);
-    }
-
-    document.getElementById("loading").style.visibility = "hidden";
   } else {
     // No data to display
     document.getElementById("loading").innerHTML = 
       "No Matches have been played in this server yet.";
   }
+
+}
+
+function displayLeaderboards () {
+
+  if(hasPlaced) {
+    // Has players with more than 5 games played.
+    document.getElementById("mainContent").appendChild(mainLeaderboard);
+  }
+
+  if (hasUnplaced) {
+    // Has players with less than 5 games played
+    const unplacedHeading = document.createElement("H2");
+    unplacedHeading.innerHTML = "Unplaced";
+    document.getElementById("mainContent").appendChild(unplacedHeading);
+    document.getElementById("mainContent").appendChild(unplacedLeaderboard);
+  }
+
+  document.getElementById("loading").style.visibility = "hidden";
 
 }
   
@@ -81,23 +103,6 @@ function createTable () {
   }
   
   return table;
-}
-
-/**
- * Get parameter from URL.
- * 
- * @param {String} sParam Search Parameter
- * @returns 
- */
-function getURLParam(sParam) {
-  const sPageURL = window.location.search.substring(1);
-  const sURLVariables = sPageURL.split('&');
-  for (let i = 0; i < sURLVariables.length; i++) {
-    const sParameterName = sURLVariables[i].split('=');
-    if (sParameterName[0] === sParam) {
-      return sParameterName[1];
-    }
-  }
 }
   
 /**

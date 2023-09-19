@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <title>CSM - Season 2</title>
+    <link id="general" rel="stylesheet" href = "../css/main.css">
+    <link id="theme" rel="stylesheet" href = "../css/dark.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="../scripts/database.js"></script>
+    <script src="../scripts/main.js"></script>
+    <script src="../node_modules/axios/dist/axios.min.js"></script>
+    
+  </head>
+  
+  <body>
+
+    <!-- Header -->
+    <div class="header">
+      <h1>Chinney Six Mans Leaderboard</h1>
+    </div>
+
+    <div class="navigation">
+      <ul>
+        <li><a class="notactive" href="../index.html">Season 3</a></li>
+        <li><a class="active">Season 2</a></li>
+        <li><a class="notactive" href="./Season1.html">Season 1</a></li>
+        <li><a class="notactive" href="./AlphaSeason.html">Alpha Season</a></li>
+      </ul>
+    </div>
+    
+    <!-- Columns -->
+    <div class="row">
+
+      <div class="sideColumn">
+        <!-- Empty Left Column -->
+      </div>
+
+      <!-- Main Content Goes Here -->
+      <div class="column" id="mainContent">
+
+        <p id="loading">Table goes here...</p>
+        
+        <script>
+          window.onload = load(2, true);
+        </script>
+        
+      </div>
+     
+      <div class="sideColumn">
+        <button onclick="toggleTheme(true)">Switch</button>
+      </div>
+    </div>
+
+    
+    
+    
+  </body>
+</html>

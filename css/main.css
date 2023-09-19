@@ -3,6 +3,12 @@
  * Leaves colours to dark.css and light.css 
  */
 
+body {
+  font-family: "Helvetica";
+  margin: 0px;
+  font-size: 100%;
+}
+
 table, th, td {
   border: 1px solid;
 }
@@ -26,13 +32,40 @@ tbody tr::before {
   margin-right: 0.5em;
 }
 
-img {
-  width: 100%
-}
-
 .header {
   padding: 20px;
   text-align: center;
+  background-color: #800aed;
+  color: white;
+}
+
+/* Style for current page / navigation link */
+.active {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
+/* style for available navigation links that aren't the current page */
+.notactive {
+  display: inline-block;
+  position: relative;
+}
+
+.notactive::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  transform-origin: center;
+  transition: transform 0.3s ease-out;
+}
+
+.notactive:hover::after {
+  transform: scaleX(1);
+  transform-origin: center;
 }
 
 /* Make small side columns */
@@ -48,9 +81,12 @@ img {
 .column {
   float: left;
   width: 70%;
+  text-align: center;
+}
+
+#mainContent {
   padding: 10px;
   margin: 1%;
-  text-align: center;
 }
 
 /* Clear floats after the columns */
@@ -58,6 +94,32 @@ img {
   content: "";
   display: table;
   clear: both;
+}
+
+ul {
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border-top: 2px solid #fac524;
+}
+
+li {
+  float: left;
+  border-left: 1px solid #bbb;
+}
+
+li:last-child {
+  border-right: 1px solid #bbb;
+}
+
+li a {
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
 }
 
 /* Responsive Layout */
