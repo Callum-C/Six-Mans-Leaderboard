@@ -1,6 +1,16 @@
 var mainLeaderboard, unplacedLeaderboard;
 var hasPlaced = false, hasUnplaced = false;
 
+async function load () {
+  getThemePreference();
+  if (sessionStorage.getItem("hasCodeRunBefore") === null) {
+    await callAPI();
+    sessionStorage.setItem("hasCodeRunBefore", true);
+  }
+  dataToLeaderboards();
+  displayLeaderboards();
+};
+
 async function callAPI () {
 
   document.getElementById("loading").innerHTML = "Loading...";
