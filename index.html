@@ -42,8 +42,13 @@
         <p id="loading">Table goes here...</p>
         
         <script>
-          window.onload = callAPI();
-          window.onload = getThemePreference();
+          window.onload = function () {
+            getThemePreference();
+            if (sessionStorage.getItem("hasCodeRunBefore") === null) {
+              callAPI();
+              sessionStorage.setItem("hasCodeRunBefore", true);
+            }
+          };
         </script>
         
       </div>
