@@ -19,20 +19,19 @@ async function callAPI () {
   
   guildID = guildID ? guildID : "349293115225407488";
 
-  const response = await axios.get(
+  const response = await fetch(
     `https://orc8aw0hui.execute-api.eu-west-1.amazonaws.com/Initial/stats/` + 
     `?guildID=${guildID}`
   );
+  const data = await response.json();
 
-  sessionStorage.setItem("data", JSON.stringify(response.data));
+  sessionStorage.setItem("data", JSON.stringify(data));
 
 }
 
 function dataToLeaderboards (season=3) {
   
   const data = JSON.parse(sessionStorage.getItem("data"))[season];
-  
-  console.log(data);
 
   if (data.length > 0) {
     mainLeaderboard = createTable();
