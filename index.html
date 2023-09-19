@@ -42,12 +42,15 @@
         <p id="loading">Table goes here...</p>
         
         <script>
-          window.onload = function () {
+          window.onload = async function () {
             getThemePreference();
             if (sessionStorage.getItem("hasCodeRunBefore") === null) {
-              callAPI();
+              await callAPI();
               sessionStorage.setItem("hasCodeRunBefore", true);
             }
+            dataToLeaderboards();
+            displayLeaderboards();
+
           };
         </script>
         

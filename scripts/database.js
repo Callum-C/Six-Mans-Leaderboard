@@ -1,19 +1,26 @@
-async function callAPI() {
+var mainLeaderboard, unplacedLeaderboard;
+var hasPlaced = false, hasUnplaced = false;
+
+async function callAPI () {
 
   document.getElementById("loading").innerHTML = "Loading...";
 
   var guildID = getURLParam('guildID');
   
   guildID = guildID ? guildID : "349293115225407488";
-  
-  var mainLeaderboard, unplacedLeaderboard, hasPlaced=false, hasUnplaced=false;
 
   const response = await axios.get(
     `https://orc8aw0hui.execute-api.eu-west-1.amazonaws.com/Initial/stats/` + 
     `?guildID=${guildID}`
   );
 
-  const data = response.data;
+  sessionStorage.setItem("data", JSON.stringify(response.data));
+
+}
+
+function dataToLeaderboards () {
+  
+  const data = JSON.parse(sessionStorage.getItem("data"));
 
   if (data.length > 0) {
     mainLeaderboard = createTable();
@@ -33,26 +40,30 @@ async function callAPI() {
       }
     }
 
-    if(hasPlaced) {
-      // Has players with more than 5 games played.
-      document.getElementById("mainContent").appendChild(mainLeaderboard);
-    }
-
-    if (hasUnplaced) {
-      // Has players with less than 5 games played
-      const unplacedHeading = document.createElement("H2");
-      unplacedHeading.innerHTML = "Unplaced";
-      document.getElementById("mainContent").appendChild(unplacedHeading);
-      document.getElementById("mainContent").appendChild(unplacedLeaderboard);
-      console.log(unplacedLeaderboard);
-    }
-
-    document.getElementById("loading").style.visibility = "hidden";
   } else {
     // No data to display
     document.getElementById("loading").innerHTML = 
       "No Matches have been played in this server yet.";
   }
+
+}
+
+function displayLeaderboards () {
+
+  if(hasPlaced) {
+    // Has players with more than 5 games played.
+    document.getElementById("mainContent").appendChild(mainLeaderboard);
+  }
+
+  if (hasUnplaced) {
+    // Has players with less than 5 games played
+    const unplacedHeading = document.createElement("H2");
+    unplacedHeading.innerHTML = "Unplaced";
+    document.getElementById("mainContent").appendChild(unplacedHeading);
+    document.getElementById("mainContent").appendChild(unplacedLeaderboard);
+  }
+
+  document.getElementById("loading").style.visibility = "hidden";
 
 }
   
