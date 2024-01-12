@@ -18,9 +18,9 @@ async function callAPI () {
   var guildID = getURLParam('guildID');
   
   guildID = guildID ? guildID : "349293115225407488";
-
+  
   const response = await fetch(
-    `https://orc8aw0hui.execute-api.eu-west-1.amazonaws.com/Initial/stats/` + 
+    `https://r5dvsot262.execute-api.eu-west-1.amazonaws.com/default/SixMansLeaderboardAPI` + 
     `?guildID=${guildID}`
   );
   const data = await response.json();
