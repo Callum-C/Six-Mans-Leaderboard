@@ -1,7 +1,7 @@
 var mainLeaderboard, unplacedLeaderboard;
 var hasPlaced = false, hasUnplaced = false;
 
-async function load (season=3, nested=false) {
+async function load (season=4, nested=false) {
   getThemePreference(nested);
   if (sessionStorage.getItem("hasCodeRunBefore") === null) {
     await callAPI();
@@ -18,18 +18,26 @@ async function callAPI () {
   var guildID = getURLParam('guildID');
   
   guildID = guildID ? guildID : "349293115225407488";
+
+  try {
+    const response = await fetch(
+      `https://orc8aw0hui.execute-api.eu-west-1.amazonaws.com/Initial/stats/` + 
+      `?guildID=${guildID}`
+    );
   
-  const response = await fetch(
-    `https://orc8aw0hui.execute-api.eu-west-1.amazonaws.com/Initial/stats/` + 
-    `?guildID=${guildID}`
-  );
-  const data = await response.json();
-
-  sessionStorage.setItem("data", JSON.stringify(data));
-
+    const data = await response.json();
+  
+    console.log(data);
+  
+    sessionStorage.setItem("data", JSON.stringify(data));
+    
+  } catch (error) {
+    console.error(`database - callAPI ${error}`);
+  }
+  
 }
 
-function dataToLeaderboards (season=3) {
+function dataToLeaderboards (season=4) {
   
   const data = JSON.parse(sessionStorage.getItem("data"))[season];
 
