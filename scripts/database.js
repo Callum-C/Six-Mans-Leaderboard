@@ -17,7 +17,7 @@ async function callAPI () {
 
   var guildID = getURLParam('guildID');
   
-  guildID = guildID ? guildID : "941643629280235550"; // "349293115225407488"
+  guildID = guildID ? guildID : "349293115225407488"; // "349293115225407488"
 
   try {
     const response = await fetch(
