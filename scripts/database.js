@@ -17,12 +17,12 @@ async function callAPI () {
 
   var guildID = getURLParam('guildID');
   
-  guildID = guildID ? guildID : "349293115225407488";
+  guildID = guildID ? guildID : "941643629280235550"; // "349293115225407488"
 
   try {
     const response = await fetch(
-      `https://orc8aw0hui.execute-api.eu-west-1.amazonaws.com/Initial/stats/` + 
-      `?guildID=${guildID}`
+      `https://r5dvsot262.execute-api.eu-west-1.amazonaws.com/default/` + 
+      `SixMansLeaderboardAPI?guildID=${guildID}`
     );
   
     const data = await response.json();
@@ -41,10 +41,17 @@ function dataToLeaderboards (season=4) {
   
   const data = JSON.parse(sessionStorage.getItem("data"))[season];
 
-  if (data.length > 0) {
-    mainLeaderboard = createTable();
-    unplacedLeaderboard = createTable();
+ 
 
+  if (data.length > 0) {
+    if (season >= 4) {
+      mainLeaderboard = createMMRTable();
+      unplacedLeaderboard = createMMRTable();
+    } else {
+      mainLeaderboard = createTable();
+      unplacedLeaderboard = createTable();
+    }
+    
     for (const player of data) {
       if (player.placed){
         if (!hasPlaced){
@@ -111,6 +118,32 @@ function createTable () {
   
   return table;
 }
+
+/**
+ * Create Table with Header Row for Season 4 onwards.
+ *  
+ * @returns {HTMLTableElement}
+ */
+function createMMRTable () {
+  const headers = [
+    "   ", "Username", "Rating (MMR)", "Matches Won", "Current Streak", 
+    "Best Win Streak", "Match Diff", "Matches Played", "Win Percentage", 
+    "Games Won", "Game Diff", "Games Played"
+  ];
+
+  let table = document.createElement('table');
+  const thead = table.createTHead();
+  const tbody = table.createTBody();
+  const tr = thead.insertRow();
+
+  for (let i=0; i < headers.length; i++) {
+    const th = tr.insertCell()
+    const text = document.createTextNode(headers[i]);
+    th.appendChild(text);
+  }
+  
+  return table;
+}
   
 /**
   * Add a singular player to the leaderboard table.
@@ -130,6 +163,12 @@ function addPlayer (table, player) {
   var td = tr.insertCell();
   var text = document.createTextNode(player.username);
   td.appendChild(text);
+
+  if (player?.mmr) {
+    td = tr.insertCell();
+    text = document.createTextNode(player.mmr);
+    td.appendChild(text);
+  }
 
   td = tr.insertCell();
   text = document.createTextNode(player.matchesWon);
