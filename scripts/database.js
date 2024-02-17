@@ -21,8 +21,8 @@ async function callAPI () {
 
   try {
     const response = await fetch(
-      `https://orc8aw0hui.execute-api.eu-west-1.amazonaws.com/Initial/stats/` + 
-      `?guildID=${guildID}`
+      `https://r5dvsot262.execute-api.eu-west-1.amazonaws.com/default/` + 
+      `SixMansLeaderboardAPI?guildID=${guildID}`
     );
   
     const data = await response.json();
