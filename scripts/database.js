@@ -164,7 +164,7 @@ function addPlayer (table, player) {
   var text = document.createTextNode(player.username);
   td.appendChild(text);
 
-  if (player?.mmr) {
+  if (player?.mmr >= 0) {
     td = tr.insertCell();
     text = document.createTextNode(player.mmr);
     td.appendChild(text);
