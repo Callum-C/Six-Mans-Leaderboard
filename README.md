@@ -1,2 +1,2 @@
 # Six-Mans-Leaderboard
-Basic website for Lil-Chin-Chin's leaderboard
+React website for Lil-Chin-Chin's Six Mans leaderboard.
